@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+<section class="section gray-bg">
+    <div class="hero is-small">
+        <div class="hero-body has-text-centered">
+            <div class="title section-title">
+                Pompes Funèbres Lauremme
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="columns is-centered pb-5">
+        <div class="column is-half">
+            <div class="container block">
+                <p>Depuis plus de 50 ans, notre entreprise familiale s’engage à vous accompagner  le plus professionnellement possible 
+                dans la douleureuse étape qu’est la perte d’un proche.</p>
+            </div>
+            <div class="button-group has-text-centered">
+                <a class="button is-secondary" href="{{path('contrat_obseques')}}">planifier un contrat obsèques</a>
+                <a class="button is-primary">organiser des funérailles</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="hero is-small">
+        <div class="hero-body has-text-centered">
+            <div class="title section-title">
+                Nos services en marbrerie
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="columns is-centered pb-5">
+        <div class="column is-half">
+            <div class="container block">
+                <p>Depuis plus de 50 ans, notre entreprise familiale s’engage à vous accompagner  le plus professionnellement possible 
+                dans la douleureuse étape qu’est la perte d’un proche.</p>
+            </div>
+<!--                 <div class="button-group has-text-centered">
+                <a class="button is-primary">en savoir plus</a>
+            </div> -->
+            <div class="columns mt-6">
+                <div class="column is-half has-text-centered item">
+                    <p class="subtitle"><strong>Plaques funéraires</strong></p>
+                    <p class="has-text-left">Votre plaque personnalisable avec la gravure et/ou les intercalaires de votre choix.</p>
+                    <img src="img/plaque.jpg" style="height:300px"/>
+                    <div class="button-group has-text-centered">
+                        <a class="button is-primary" href="{{path('plaques')}}">decouvrir</a>
+                    </div>
+                </div>
+                <div class="column is-half has-text-centered item">
+                    <p class="subtitle"><strong>Monuments</strong></p>
+                    <p class="has-text-left">Découvrez notre gamme de monuments classiques ou cinéraires.</p>
+                    <img src="img/monument.png" style="height:300px"/>
+                    <div class="button-group has-text-centered">
+                        <a class="button is-primary" href="{{path('monuments')}}">decouvrir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

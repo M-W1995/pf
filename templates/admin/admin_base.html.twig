@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Pompes Funèbres Trucmuche - {% block title %}{% endblock %}</title>
+    <meta name="description" content="Pompes Funèbres et marbrerie Trucmuche">
+    <meta name="author" content="MW">
+
+    <meta property="og:title" content="Pompes Funèbres et marbrerie Trucmuche">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Pompes Funèbres et marbrerie Trucmuche">
+
+    <!-- <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml"> -->
+    <!-- <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    {% block styles %}{% endblock %}
+</head>
+
+<body>
+
+<nav class="navbar is-primary">
+    <div class="navbar-item nohover">
+        <a class="button" href="{{path('home')}}">< Retour au site</a>
+    </div>
+</nav>
+
+<div class="columns pl-4 pt-4 is-centered">
+    <div class="column is-2">
+        <aside class="menu">
+            <p class="menu-label">
+                General
+            </p>
+            <ul class="menu-list">
+                <li><a href="{{path('admin')}}">Index</a></li>
+                <li><a href="{{path('admin_contact')}}">Contact</a></li>
+            </ul>
+            <p class="menu-label">
+            Avis de décès
+            </p>
+            <ul class="menu-list">
+                <li><a href="{{path('admin.deces')}}">Liste des avis</a></li>
+                <li><a href="{{path('admin.deces.add')}}">Ajouter un avis</a></li>
+            </ul>
+            <p class="menu-label">
+                Devis
+            </p>
+            <ul class="menu-list">
+                <li><a href="{{path('admin.marbrerie', {slug:'traditionnel'})}}">Contrats obsèques</a></li>
+            </ul>
+            <p class="menu-label">
+                Marbrerie
+            </p>
+            <ul class="menu-list">
+                <li><a href="{{path('admin.marbrerie', {slug:'traditionnel'})}}">Traditionnels</a></li>
+                <li><a href="{{path('admin.marbrerie', {slug:'cineraire'})}}">Cinéraires</a></li>
+                <li><a href="{{path('admin.marbrerie', {slug:'plaque'})}}">Plaques</a></li>
+                <li><a href="{{path('admin.inters')}}">Inters</a></li>
+            </ul>
+        </aside>
+    </div>
+    <div class="column is-8">
+            
+        {% block body %}
+        {% endblock %}
+
+    </div>
+</div>
+
+    </div>
+</section>
+
+</body>
+</html>

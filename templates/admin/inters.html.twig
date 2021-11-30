@@ -1,0 +1,70 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+
+<div class="block">
+<p class="title">
+    Inters
+</p>
+</div>
+
+<div class="columns">
+    <div class="column is-half">
+
+    <div class="box">
+        <p class="subtitle">
+            <b>Ajouter un inter :</b>
+            <form method="post">
+                <div class="field">
+                    <div class="select is-fullwidth">
+                        <select name="categorie">
+                            <option value="">Catégorie...</option>
+                            {% for categorie in categories %}
+                                <option value="{{categorie.id}}">{{categorie.nom}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <input name="inter_nom" type="text" class="input" placeholder="Nom..."/>
+                </div>
+                <input name="form_name" type="hidden" value="new_inter"/>
+                <div class="field"><input type="submit" value="Valider" class="button is-primary"/></div>
+            </form>
+        </p>
+    </div>
+
+    <div class="box">
+        <p class="subtitle">
+            <b>Ajouter une catégorie :</b>
+            <form method="post">
+                <div class="field">
+                    <input name="categorie_nom" type="text" class="input" placeholder="Nom..."/>
+                </div>
+                <div class="field">
+                    <input type="submit" value="Valider" class="button is-primary"/>
+                </div>
+                <input name="form_name" type="hidden" value="new_categorie"/>
+            </form>
+        </p>
+    </div>
+</div>
+
+<div class="column">
+
+    <div class="box">
+        <p class="subtitle">
+            <b>Liste des inters</b>
+        </p>
+        {% for inter in inters %}
+            <p>
+                {{ inter.categorie.nom }} {{ inter.nom }} - 
+                <a class="is-small is-danger">Effacer</a>
+            </p>
+        {% endfor %}
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+
+<p class="title">Avis de décès</p>
+
+{% for message in app.flashes('success') %}
+    <div class="message is-success">
+        <div class="message-body">
+            {{ message }}
+        </div>
+    </div>
+{% endfor %}
+
+{{ form(form) }}
+
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plaques{% endblock %}
+
+{% block body %}
+
+<section class="section gray-bg">
+    <div class="hero is-small">
+        <div class="hero-body has-text-centered">
+            <div class="title section-title">
+                Plaques funéraires
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="content mt-5">
+        <div class="columns is-multiline">
+            {% for plaque in plaques %}
+            <div class="column is-one-quarter-desktop is-half-tablet">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-3by2">
+                            <img src="{{asset('uploads/marbrerie/')}}{{ plaque.photo }}"/>
+                        </figure>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="card-footer-item is-primary button">
+                            choisir
+                        </a>
+                    </footer>
+                </div>
+            </div>
+            {% else %}
+            Aucun résultat.
+            {% endfor %}
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+
+<p class="title">Messages de contact</p>
+
+<table class="table is-fullwidth">
+    <thead>
+        <th>Expediteur</th>
+        <th>Lu</th>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+            <tr>
+                    <td>
+                        {% if message.lu == null %}<b>{% endif %}
+                        <a href="{{path('admin_contact_read',{id:message.id})}}">{{ message.expediteur }}</a>
+                        {% if message.lu == null %}</b>{% endif %}
+                    </td>
+                    <td>
+                    {% if message.lu == null %}
+                        <i class="fas fa-envelope"></i>
+                    {% else %}
+                        <i class="fas fa-envelope-open"></i>
+                    {% endif %}
+                    </td>
+            </tr>
+        {% endfor %}
+</table>
+
+{% endblock %}

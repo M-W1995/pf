@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+/*
+	couleurs
+*/
+body{
+	font-family: 'Raleway', sans-serif!important;
+}
+.is-primary{
+	background:#213564!important;
+	color:#FFFFFF!important;
+}
+.is-secondary{
+	background:#1E96FC!important;
+	color:#FFFFFF!important;
+}
+/* .is-success{
+	background:#95C623!important;
+}
+.is-success .message-body{
+	color:#FFFFFF!important;
+} */
+.navbar-item:hover,.navbar-link:hover, .navbar-link:active, .navbar-item:hover .navbar-link{
+	background: #95c623!important;
+}
+.navbar-dropdown .navbar-item:hover {
+	background: inherit!important;
+}
+.gray-bg{
+	background:#EDF2F4!important;
+}
+.header-hero{
+	background:url("../img/hero_background.png")!important;
+	background-size:cover!important;
+}
+.logo{
+	position:absolute;
+	text-align:center;
+	top:0;
+	width:100%;
+}
+.navbar-item{
+	font-weight:bold;
+}
+.logo img{
+	width:100px;
+	margin:20px;
+}
+
+.section-title{
+	color:#213564!important;
+}
+.navbar-start{
+	flex-grow: 1;
+	justify-content: center;
+}
+.hero hr{
+	border:2px solid #95C623!important;
+	max-width:10%;
+	margin:auto;
+	margin-top:10px;
+}
+.button{
+	text-transform: uppercase;
+	font-weight:bold;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.show {
+  opacity: 1;
+  transition: opacity 400ms;
+}
+.hide {
+  opacity: 0;
+  transition: opacity 400ms;
+}
+.item{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between
+}
+.columns .button-group{
+    margin-top: auto;
+}
+.nohover:hover {
+	background:inherit!important;
+}
+footer a{
+	color:#fff!important;
+}

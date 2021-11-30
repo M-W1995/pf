@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis de décès{% endblock %}
+
+{% block body %}
+
+<section class="section gray-bg">
+    <div class="hero is-small">
+        <div class="hero-body has-text-centered">
+            <div class="title section-title">
+                Avis de décès
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div>
+    <div class="columns is-centered mt-5">
+        <div class="column is-two-thirds" data-content>
+
+            <template id="template">
+                <div class="box" data-box>
+                    <div class="columns is-vcentered">
+                        <div class="column is-flex is-align-items-center">
+                            <img src="img/logo.png"/>
+                            <span class="pl-6">
+                                <p class="title is-5" data-nom></p>
+                                <p class="subtitle" data-annees></p>
+                            </span>
+                        </div>
+                        <div class="column is-vcentered is-one-fifth">
+                            <div class="field is-grouped is-grouped-right">
+                                <p class="control is-expanded"><a class="button is-primary is-fullwidth" data-consulter>consulter</a></p>
+                                <p class="control is-expanded"><a class="button is-primary is-fullwidth" data-offrir>offrir</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+    </div>
+
+    <div class="columns is-centered mt-5">
+        <div class="column is-half">
+            <div class="has-text-centered" data-pagination>
+            </div>
+        </div>
+    </div>
+</section>
+    
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+var template = document.querySelector("#template")
+var container = document.querySelector("[data-content]")
+var pagination = document.querySelector("[data-pagination]")
+var requestedPageNumber = 1
+var perPage = 5
+
+let allData = []
+{% for item in items %}
+    allData.push({"nom":"{{item.nom}}","prenom":"{{item.prenom}}","naissance":"{{item.naissance|date("Y")}}","annee":"{{item.date|date("Y")}}","id":{{item.id}}})
+{% endfor %}
+var pagesCount = Math.ceil(allData.length/perPage)
+
+for(i=1;i<=pagesCount;i++)
+{
+    pagination.innerHTML += "<div class='button' data-page='"+i+"'>"+i+"</div>"
+}
+
+var pages = document.querySelectorAll("[data-page]")
+pages.forEach(page => {
+    page.addEventListener('click',()=>{
+        page.classList.add("is-primary")
+        if(page.dataset.page != requestedPageNumber)
+        {
+            document.querySelector("[data-page='"+requestedPageNumber+"']").classList.remove('is-primary')
+            requestedPageNumber = page.dataset.page
+            showData(getData(requestedPageNumber))
+        }
+    })
+})
+
+showData(allData)
+
+function getData(pageRequested)
+{
+    var dataRequested = []
+    for (i=0;i<perPage;i++)
+    {
+        dataRequested.push(allData[pageRequested*perPage-perPage+i])
+    }
+    return dataRequested
+}
+function showData(data)
+{
+    document.querySelector("[data-page='"+requestedPageNumber+"']").classList.add('is-primary')
+    container.innerHTML = ''
+    for (i=0; i < perPage; i++)
+    {
+        var clone = template.content.cloneNode(true)
+        clone.querySelector("[data-nom]").innerHTML = data[i].nom+" "+data[i].prenom
+        clone.querySelector("[data-annees]").innerHTML = data[i].naissance+"-"+data[i].annee
+        clone.querySelector("[data-consulter]").href = "/avis/"+data[i].id
+        clone.querySelector("[data-offrir]").href = i
+        container.appendChild(clone)
+    }
+}
+</script>
+{% endblock %}

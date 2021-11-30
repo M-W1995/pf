@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Monuments{% endblock %}
+
+{% block body %}
+
+<section class="section gray-bg">
+    <div class="hero is-small">
+        <div class="hero-body has-text-centered">
+            <div class="title section-title">
+                Monuments traditionnels
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="content mt-5">
+
+        <div class="columns is-multiline">
+            {% for monument in traditionnels %}
+            <div class="column is-one-quarter-desktop is-half-tablet">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-3by2">
+                            <img src="{{asset('uploads/marbrerie/')}}{{ monument.photo }}"/>
+                        </figure>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="card-footer-item is-primary button">
+                            voir
+                        </a>
+                    </footer>
+                </div>
+            </div>
+            {% else %}
+            Aucun résultat.
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="hero is-small">
+        <div class="hero-body has-text-centered">
+            <div class="title section-title">
+                Monuments cinéraires
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="content mt-5">
+
+        <div class="columns is-multiline">
+            {% for monument in cineraires %}
+            <div class="column is-one-quarter-desktop is-half-tablet">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-3by2">
+                            <img src="{{asset('uploads/marbrerie/')}}{{ monument.photo }}"/>
+                        </figure>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="card-footer-item is-primary button">
+                            voir
+                        </a>
+                    </footer>
+                </div>
+            </div>
+            {% else %}
+            Aucun résultat.
+            {% endfor %}
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

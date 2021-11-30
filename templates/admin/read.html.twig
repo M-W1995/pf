@@ -1,0 +1,18 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+
+<p class="title">Message de contact</p>
+
+<p><b>De</b> : {{ message.expediteur }}</p>
+<p><b>Email</b> : {{ message.email }}</p>
+<p><b>Téléphone</b> : {{ message.telephone }} </p>
+<p><b>Message</b> :</p>
+<p>{{ message.message }}</p>
+
+
+<div class="block mt-6">
+    <a class="button is-primary" href="{{path('admin_contact')}}">< Retour</a>
+</div>
+
+{% endblock %}

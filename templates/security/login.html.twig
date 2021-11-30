@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+
+<section>
+
+    <div class="columns is-centered mt-6">
+        <div class="column is-one-third">
+            <p class="title">Connexion</p>
+
+            <form method="post" class="form">
+                {% if error %}
+                    <div class="message is-danger">
+                        <div class="message-body">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        Connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">se déconnecter.</a>
+                    </div>
+                {% endif %}
+
+                <div class="field">
+                    <label class="label" for="inputUsername">Nom d'utilisateur</label>
+                    <input class="input" type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" autofocus>
+                </div>
+                <div class="field">
+                    <label class="label" for="inputPassword">Mot de passe</label>
+                    <input class="input" type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password">
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="field">
+                    <button class="button is-primary is-fullwidth" type="submit">Connexion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="block mb-6">
+</section>
+
+{% endblock %}

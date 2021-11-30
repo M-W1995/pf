@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Pompes Funèbres Lauremme - {% block title %}{% endblock %}</title>
+    <meta name="description" content="Pompes Funèbres et marbrerie Lauremme">
+    <meta name="author" content="MW">
+
+    <meta property="og:title" content="Pompes Funèbres et marbrerie Lauremme">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Pompes Funèbres et marbrerie Lauremme">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    {% block styles %}{% endblock %}
+</head>
+
+<body>
+
+    {% include('nav.html.twig') %}
+
+    {% block body %}
+    {% endblock %}
+
+    {% include('footer.html.twig') %}
+
+    <script src="{{asset('js/main.js')}}"></script>
+
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+
+</html>

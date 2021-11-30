@@ -1,0 +1,64 @@
+<section class="hero is-primary is-medium header-hero">
+  <div class="hero-head">
+    <div class="logo">
+        <img src="{{asset('img/logo.png')}}" alt="Logo">
+    </div>
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="{{path('home')}}">P.F. LAUREMME</a>
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item" href="{{path('contact')}}">CONTACT</a>
+            <span class="navbar-item">
+                <span class="icon">
+                  <i class="fa fa-phone"></i>
+                </span>
+                <span>0909090909</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title is-1">
+        Pompes Funèbres Lauremme
+      </p>
+    </div>
+  </div>
+</section>
+
+<nav class="navbar is-primary main-nav" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{{path('home')}}">
+        <img src="{{asset('img/logo.png')}}"/>
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a href="{{path('home')}}" class="navbar-item">Accueil</a>
+        <a class="navbar-item">A propos</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Nos services
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="{{path('contrat_obseques')}}">Contrat obsèques</a>
+            <a class="navbar-item">Funérailles</a>
+            <hr class="navbar-divider">
+            <a class="navbar-item" href="{{path('monuments')}}">Monuments</a>
+            <a class="navbar-item" href="{{path('plaques')}}">Plaques funéraires</a>
+          </div>
+        </div>
+        <a href="{{path('avis_deces')}}" class="navbar-item">Avis de décès</a>
+        <a class="navbar-item" href="{{path('contact')}}">Nous contacter</a>
+      </div>
+    </div>
+</nav>

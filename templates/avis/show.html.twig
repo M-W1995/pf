@@ -1,0 +1,258 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis de décès{% endblock %}
+
+{% block body %}
+
+<section class="section">
+<div class="hero is-small">
+    <div class="hero-body has-text-centered">
+        <p class="title">Avis de décès</p>
+        <hr>
+    </div>
+</div>
+<div class="columns is-centered is-vcentered mt-5">
+    <div class="column is-2">
+        <div class="content has-text-centered">
+            {% if app.session.get('avis_id') == avis.id %}
+                <div class="field">
+                    <button class="button is-primary is-fullwidth" onclick="espace()">Espace famille&nbsp; &nbsp;<i class="fas fa-share-square"></i></button>
+                </div>
+            {% else %}
+                <div class="field has-addons">
+                    <p class="control">                 
+                        <form name="key">
+                            <input class="input" type="text" name="cle" placeholder="Code famille" data-key="input">
+                        </form>
+                        <p class="control is-static">
+                            <button class="button" data-key="button"><i class="fas fa-share-square"></i></button>
+                        </p>
+                    </p>
+                </div>
+            {% endif %}
+            <div class="field">
+                <p class="button is-fullwidth" data-candle="button"><span data-candle="amount">{{avis.bougies}}</span>&nbsp;&nbsp;<img src="{{asset('img/bougie.png')}}" width="25px"/></p>
+            </div>
+        </div>
+    </div>
+    <div class="column is-2"></div>
+    <div class="column has-text-centered">
+        <div class="is-flex is-align-items-center" >
+            <img src="
+                {% if avis.photo is defined %}
+                    {{ asset('uploads/') }}{{ avis.photo }}
+                {% else %}
+                    {{ asset('img/logo.png') }}
+                {% endif %}      
+            "/ class="mr-6">
+            <div>
+                <p class="title uppercase">{{ avis.civilite }} {{ avis.nom }} {{ avis.prenom }}</p>
+                <p>Décédé(e) le {{avis.date|date('d-m-Y')}} à l'âge de {{avis.age}} ans.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="section gray-bg block">
+<div class="hero is-small block">
+    <div class="hero-body has-text-centered">
+        <p class="title">Messages de condoléances</p>
+        <hr>
+    </div>
+</div>
+<div class="columns is-centered pb-5">
+    <div class="column is-half">
+        <p class="subtitle"><strong>Ajouter un message de condoléances</strong></p>
+
+        <div class="block">
+            {{ form(form) }}
+        </div>
+        <hr>
+        <div>
+            {% for condoleance in condoleances %}
+                <div class="box">
+                    <p class="message">De <b>{{ condoleance.auteur }}</b> :</p>
+                    <p>{{ condoleance.message }}</p>
+                </div>
+            {% else %}
+                <p>Aucun message pour le moment.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</section>
+
+
+<section class="has-text-centered block">
+    <div class="content">
+        <a class="button is-primary" href="{{path('avis_deces')}}">< Retour</a>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+var condoleanceButton = document.querySelector("[data-action='send_condoleance']")
+var condoleanceForm = document.querySelector("form[name=condoleances]")
+condoleanceButton.addEventListener('click',(e)=>{
+    e.preventDefault();
+    var formData = new FormData(condoleanceForm)
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if(request.readyState === 4) {
+            if(request.status === 200) { 
+                var response = JSON.parse(request.response)
+
+                var errorClasses = condoleanceForm.querySelectorAll('.is-danger')
+                if (errorClasses.length > 0) {
+                    errorClasses.forEach(error=>{
+                        error.classList.remove('is-danger')
+                    })
+                }
+                var errorMessages = condoleanceForm.querySelectorAll('.message')
+                if (errorMessages.length > 0) {
+                    errorMessages.forEach(error=>{
+                        error.innerHTML = ""
+                    })
+                }
+                if (response.status == 'error')
+                {
+                    response.message.forEach((message)=>{
+                        document.querySelector("#condoleances_"+message[0]).classList.add('is-danger')
+                        var inputContainer = document.querySelector("#condoleances_"+message[0]).parentElement
+                        if (inputContainer.children.length < 3) {
+                            var messageDiv = document.createElement("p")
+                            messageDiv.classList.add("message")
+                            inputContainer.appendChild(messageDiv)
+                        }
+                        inputContainer.querySelector('.message').classList.add("is-danger")
+                        inputContainer.querySelector('.message').innerHTML = message[1]
+                    })
+                }
+                else
+                {
+                    var messageDiv = document.createElement("div")
+                    messageDiv.classList.add("message","is-success","mt-4")
+                    var messageContent = document.createElement("p")
+                    messageContent.classList.add("message-body")
+                    messageContent.innerText = "Votre message a été envoyé avec succès et est en attente de la validation de la famille."
+                    condoleanceForm.appendChild(messageDiv)
+                    messageDiv.appendChild(messageContent)
+                    condoleanceButton.disabled = true
+                }
+            } else {
+            console.log('erreur: ' +  request.status + ', ' + request.statusText)
+            } 
+        }
+    }
+    request.open('post', '{{path('add_condoleance', {id:avis.id})}}')
+    request.send(formData);
+})
+
+var candleSent = false;
+var candle = document.querySelector("[data-candle='button']")
+candle.addEventListener('click',()=>{
+    if (!candleSent) {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if(request.readyState === 4) {
+                if(request.status === 200) {
+                    candleSent = true;
+                    var response = JSON.parse(request.response)
+                    document.querySelector("[data-candle='amount']").textContent = response.bougies
+                    candle.classList.add("is-success")
+                }
+            }
+        }
+        request.open('post', '{{path('add_bougie', {id:avis.id})}}')
+        request.send();
+    }
+})
+
+var keyButton = document.querySelector("[data-key='button']")
+keyButton.addEventListener('click',(e)=>{
+    e.preventDefault()
+    var formData = new FormData(document.querySelector("form[name=key]"))
+    var keyField = document.querySelector("[data-key='input']")
+    var request = new XMLHttpRequest()
+    request.onreadystatechange = function() {
+        if(request.readyState === 4) {
+            if(request.status === 200) {
+                var response = JSON.parse(request.response)
+                console.log(request.response)
+                if (response.status === 1) {
+                    location.href = "{{ path('show_avis_deces',{id:avis.id}) }}"
+                }
+                else {
+                    if (keyField.parentElement.children.length < 2) {
+                        keyField.parentElement.innerHTML += "<p class='message is-danger'>Code erroné</p>"
+                        keyField.classList.add("is-danger")
+                        keyButton.classList.add("is-danger")
+                    }
+                }
+            }
+        }
+    }
+    request.open('post', '{{path('espace_connect', {id:avis.id})}}')
+    request.send(formData)
+})
+
+function espace() 
+{
+    var request = new XMLHttpRequest()
+    request.onreadystatechange = function() {
+        if(request.readyState === 4) {
+            if(request.status === 200) {
+                var existingModal = document.querySelector("[data-role='modal']")
+                if (existingModal) {
+                    document.querySelector("[data-role='modal']").remove()
+                }
+                var response = JSON.parse(request.response)
+                var espaceModal = document.createElement("div")
+                espaceModal.innerHTML = response.content
+                document.body.appendChild(espaceModal)
+                espaceScripts()
+            }
+        }
+    }
+    request.open('post', '{{ path('avis_espace',{id: avis.id}) }}')
+    request.send()
+}
+
+function espaceScripts()
+{
+    var modal = document.querySelector('.modal')
+    document.querySelectorAll("[aria-label='close']").forEach(button=>{
+        button.addEventListener('click',()=>{
+            modal.classList.remove('is-active')
+        })
+    })
+    var condoleanceButton = document.querySelectorAll("[data-cbutton]")
+    condoleanceButton.forEach(button=>{
+        button.addEventListener('click',()=>{
+            actionCondoleance(button.dataset.cbutton,button.dataset.cid)
+            button.parentElement.parentElement.parentElement.remove()
+        })
+    })
+}
+function actionCondoleance(action,id)
+{
+    var request = new XMLHttpRequest()
+    request.open('post', "{{path('gestion_condoleance',{id:avis.id})}}")
+    request.send(JSON.stringify({'action': action,'id': id}))
+}
+
+</script>
+
+{% endblock %}
+
+{% block styles %}
+<style>
+.uppercase
+{
+    text-transform:uppercase;
+}
+</style>
+{% endblock %}

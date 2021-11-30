@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inters{% endblock %}
+
+{% block body %}
+
+<section class="section gray-bg">
+    <div class="hero is-small">
+        <div class="hero-body has-text-centered">
+            <div class="title section-title">
+                Inters
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    <div class="content mt-5">
+        
+        {% for name,content in inters %}
+            <p class="subtitle">
+                Catégorie : {{ name }}
+            </p>
+            <div class="block">
+                <ul>
+                {% for inter in content %}            
+                    <li>{{inter.nom}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

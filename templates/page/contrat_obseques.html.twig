@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contrat obsèques{% endblock %}
+
+{% block body %}
+<section class="section gray-bg">
+    <div class="hero is-small">
+        <div class="hero-body has-text-centered">
+            <div class="title section-title">
+                Planifier un contrat obsèques
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div>
+    <div class="columns is-centered pb-5">
+        <div class="column is-half">
+
+            <div class="form">
+                <div class="block" data-content>
+                    <div id="step-1" data-step="content">
+                        je suis l'étape 1
+                        <div class="field">
+                            <input class="input" type="text" placeholder="test"/>
+                        </div>
+                        <div class="field">
+                            <input class="input" type="text" placeholder="test"/>
+                        </div>
+                        <div class="field">
+                            <input class="input" type="text" placeholder="test"/>
+                        </div>
+                        <div class="select is-fullwidth">
+                            <select>
+                                <option value="">Choisir...</option>
+                                <option value="Test">Test</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="step-2" data-step="content">
+                        <div class="field">
+                            <input class="input" type="text" placeholder="test"/>
+                        </div>
+                        <div class="field">
+                            <input class="input" type="text" placeholder="test"/>
+                        </div>
+                        <div class="field">
+                            <input class="input" type="text" placeholder="test"/>
+                        </div>
+                    </div>
+                    <div id="step-3" data-step="content">
+                        <div class="field">
+                            <input class="input" type="text" placeholder="test"/>
+                        </div>
+                        <div class="field">
+                            <input class="input" type="text" placeholder="test"/>
+                        </div>
+                        <div class="field">
+                            <input class="input" type="text" placeholder="test"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-group has-text-centered">
+                    <button class="button is-primary" data-step="previous" disabled>precedent</button>
+                    <button class="button is-primary" data-step="next">suivant</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+var form = document.querySelector(".form")
+var formContent = document.querySelector("[data-content]")
+var next = document.querySelector("[data-step='next']")
+var previous = document.querySelector("[data-step='previous']")
+var step = 1
+var stepCount = document.querySelectorAll("[data-step='content']").length
+
+updateForm()
+
+next.addEventListener('click',()=>{
+    if (checkInputs()) {
+        previous.disabled = false
+        step++
+        if (step == stepCount) {
+            next.innerText = 'envoyer'
+        }
+        else if (step > stepCount) {
+            alert('formulaire envoyé')
+            next.disabled = true
+            return
+        }
+        updateForm()
+    }
+})
+previous.addEventListener('click',()=>{
+    next.innerText = 'suivant'
+    step--
+    if (step < 2) {
+        previous.disabled = true
+    }
+    updateForm()
+})
+function updateForm()
+{
+    document.querySelectorAll("[data-step='content']").forEach(content=>{
+        content.style.display = "none";
+    })
+    document.querySelector("#step-"+step).style.display = "";
+}
+
+function checkInputs()
+{
+    var valid = true
+    var inputs = document.querySelector("#step-"+step).querySelectorAll("input, select")
+    inputs.forEach(input=>{
+        if (input.value == '') {
+            valid = false
+            input.classList.add("is-danger")
+            input.parentElement.classList.add("is-danger")
+        }
+        else{
+            input.classList.remove("is-danger")
+            input.parentElement.classList.remove("is-danger")
+        }
+    })
+    return valid
+}
+
+</script>   
+{% endblock %}
